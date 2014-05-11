@@ -1,0 +1,22 @@
+{
+  "name": "promise-facebook",
+  "description": "The facebook SDK but with a promise api.",
+  "author": "François Frisch francoisfrisch@gmail.com",
+  "version": "0.0.1",
+  "main": "index",
+  "dependencies": {
+    "q": "^1.0.0"
+  },
+  "devDependencies": {
+    "jshint": "~2.3.0",
+    "jasmine-node": "~1.11.0",
+    "istanbul": "~0.1.44"
+  },
+  "scripts": {
+    "test": "istanbul test -x 'spec/**' jasmine-node -- --junitreport spec && jshint --verbose ."
+  },
+  "exclude": [
+    "test"
+  ],
+  "engine": "node >= 0.6.6"
+}
