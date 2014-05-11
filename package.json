@@ -2,7 +2,7 @@
   "name": "promise-facebook",
   "description": "The facebook SDK but with a promise api.",
   "author": "François Frisch francoisfrisch@gmail.com",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index",
   "dependencies": {
     "q": "^1.0.0"
