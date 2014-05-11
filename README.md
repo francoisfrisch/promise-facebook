@@ -16,45 +16,45 @@ At the moment only `api`, `ui`, `login`, `logout`, and `getLoginStatus` methods 
 See [FB.api()](https://developers.facebook.com/docs/javascript/reference/FB.api)
 
 ### parameters:
-    `path`, `method`, `params`
+`path`, `method`, `params`
 ### returns:
-    promise for the response's data
+promise for the response's data
 
 ## `.ui()`
 
 See [FB.ui()](https://developers.facebook.com/docs/javascript/reference/FB.ui)
 
 ### parameters:
-    `params`
+`params`
 ### returns:
-    promise for the dialog's response data
+promise for the dialog's response data
 
 ## `.login()`
 
 See [FB.login()](https://developers.facebook.com/docs/reference/javascript/FB.login/v2.0)
 
 ### parameters:
-    `params`
+`params`
 ### returns:
-    promise for the facebook object in a logged in state
+promise for the facebook object in a logged in state
 
 ## `.logout()`
 
 See [FB.logout()](https://developers.facebook.com/docs/reference/javascript/FB.logout)
 
 ### parameters:
-    none
+none
 ### returns:
-    promise for the facebook object in a logged out state
+promise for the facebook object in a logged out state
 
 ## `.getLoginStatus()`
 
 See [FB.getLoginStatus()](https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus)
 
 ### parameters:
-    `force`: Force reloading the login status (default false).
+`force`: Force reloading the login status (default false).
 ### returns:
-    promise for the logout response
+promise for the logout response
 
 # Usage:
 
