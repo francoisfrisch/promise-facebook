@@ -1,7 +1,5 @@
 // https://github.com/kriskowal/q/blob/master/spec/lib/jasmine-promise.js
 
-"use strict";
-
 var Q = require("../../node_modules/q");
 
 /**
@@ -46,50 +44,54 @@ jasmine.Block.prototype.execute = function (onComplete) {
  * Tests and documents the behavior of the above extension to jasmine.
  */
 describe('jasmine-promise', function() {
-  it('passes if the deferred resolves immediately', function() {
-    var deferred = Q.defer();
-    deferred.resolve();
-    return deferred.promise;
-  });
-  it('passes if the deferred resolves after a short delay', function() {
-    var deferred = Q.defer();
-    setTimeout(function() {deferred.resolve();}, 100);
-    return deferred.promise;
-  });
-  it('lets specs that return nothing pass', function() {
+    it('passes if the deferred resolves immediately', function() {
+        var deferred = Q.defer();
+        deferred.resolve();
+        return deferred.promise;
+    });
+    it('passes if the deferred resolves after a short delay', function() {
+        var deferred = Q.defer();
+        setTimeout(function() {deferred.resolve();}, 100);
+        return deferred.promise;
+    });
+    it('lets specs that return nothing pass', function() {
 
-  });
-  it('lets specs that return non-promises pass', function() {
-    return {'some object': 'with values'};
-  });
-  it('works ok with specs that return crappy non-Q promises', function() {
-    return {
-      'then': function(callback) {
-        callback();
-      }
-    }
-  });
-  // These are expected to fail. Remove the x from xdescribe to test that.
-  xdescribe('failure cases (expected to fail)', function() {
-    it('fails if the deferred is rejected', function() {
-      var deferred = Q.defer();
-      deferred.reject();
-      return deferred.promise;
     });
-    it('fails if the deferred takes too long to resolve', function() {
-      var deferred = Q.defer();
-      setTimeout(function() {deferred.resolve()}, 5 * 1000);
-      return deferred.promise;
+    it('lets specs that return non-promises pass', function() {
+        return {'some object': 'with values'};
     });
-    it('fails if a returned crappy non-Q promise is rejected', function() {
-      return {
-        'then': function(_, callback) {callback()}
-      }
+    it('works ok with specs that return crappy non-Q promises', function() {
+        return {
+            'then': function(callback) {
+                callback();
+            }
+        };
     });
-    it('fails if a returned crappy promise is never resolved', function() {
-      return {
-        'then': function() {}
-      }
+    // These are expected to fail. Remove the x from xdescribe to test that.
+    xdescribe('failure cases (expected to fail)', function() {
+        it('fails if the deferred is rejected', function() {
+            var deferred = Q.defer();
+            deferred.reject();
+            return deferred.promise;
+        });
+        it('fails if the deferred takes too long to resolve', function() {
+            var deferred = Q.defer();
+            setTimeout(function() {
+                deferred.resolve();
+            }, 5 * 1000);
+            return deferred.promise;
+        });
+        it('fails if a returned crappy non-Q promise is rejected', function() {
+            return {
+                'then': function(_, callback) {
+                    callback();
+                }
+            };
+        });
+        it('fails if a returned crappy promise is never resolved', function() {
+            return {
+                'then': function() {}
+            };
+        });
     });
-  })
 });

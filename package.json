@@ -13,10 +13,10 @@
     "istanbul": "~0.1.44"
   },
   "scripts": {
-    "test": "istanbul test -x 'spec/**' jasmine-node -- --junitreport spec && jshint --verbose ."
+    "test": "istanbul test -x 'spec/**' jasmine-node -- --junitreport spec && jshint --verbose index.js && jshint --verbose spec"
   },
   "exclude": [
-    "test"
+    "spec"
   ],
   "engine": "node >= 0.6.6"
 }
