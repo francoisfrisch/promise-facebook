@@ -1,7 +1,8 @@
 A package that wraps the Facebook javascript api to provide promises rather than callbacks.
 
 At the moment this is only a wrapper for the client side js SDK and depends of the presence of the DOM.
-(pull requests accepted)
+
+So far I have made it work with the mr package loader from MontageJS. [mr](https://github.com/montagejs/mr)
 
 # Reference
 
