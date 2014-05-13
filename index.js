@@ -1,4 +1,4 @@
-/* global FB,module*/
+/* global FB,module,process*/
 var Q = require("q");
 
 var FACEBOOK_ID = "facebook-jssdk";
@@ -9,33 +9,42 @@ module.exports = function (appId) {
     //deferred is null the first time, after that, always the same.
     if(!deferredFacebook) {
         deferredFacebook = Q.defer();
-        if (document.getElementById(FACEBOOK_ID)) {
-            // Facebook is already loaded
-            deferredFacebook.reject(new Error("Facebook is already loaded."));
+
+        //test if we are in a browser
+        if(typeof document !== "undefined") {
+            // in a browser
+            if (document.getElementById(FACEBOOK_ID)) {
+                // Facebook is already loaded
+                deferredFacebook.reject(new Error("Facebook is already loaded."));
+            } else {
+                window.fbAsyncInit = function() {
+                    FB.init({
+                        appId      : appId,
+                        xfbml      : true,
+                        version    : 'v2.0'
+                    });
+                    deferredFacebook.resolve(decorate(FB));
+                };
+                var scriptElement = document.createElement('script');
+                scriptElement.src = "//connect.facebook.net/en_US/sdk.js";
+                scriptElement.id = FACEBOOK_ID;
+                document.head.appendChild(scriptElement);
+            }
         } else {
-            window.fbAsyncInit = function() {
-                deferredFacebook.resolve(FB);
-            };
-            var scriptElement = document.createElement('script');
-            scriptElement.src = "//connect.facebook.net/en_US/sdk.js";
-            scriptElement.id = FACEBOOK_ID;
-            document.head.appendChild(scriptElement);
+            // in node
+            var facebook = require/**/("fb");
+            facebook.setAccessToken(process.env[appId]);
+            deferredFacebook.resolve(decorate(facebook));
         }
     }
-    return deferredFacebook.promise
-    .then(function (facebook) {
-        facebook.init({
-            appId      : appId,
-            xfbml      : true,
-            version    : 'v2.0'
-        });
-        return decorate(facebook);
-    });
+    return deferredFacebook.promise;
 };
 
 function decorate(facebook) {
     var newFacebook = Object.create(facebook);
     newFacebook.api = function (path, method, params) {
+        //TODO suppo rt batch requests
+
         var deferred = Q.defer();
         var args = [path];
         if(typeof method === "string") {
@@ -46,7 +55,7 @@ function decorate(facebook) {
         }
         args.push(function(response) {
             if (response && response.error) {
-                deferred.reject(new Error(response.error));
+                deferred.reject(new Error(response.error.message, response.error));
             } else {
                 deferred.resolve(response.data);
             }
