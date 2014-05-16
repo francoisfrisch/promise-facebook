@@ -4,11 +4,11 @@
   "author": {
     "name": "François Frisch francoisfrisch@gmail.com"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index",
   "dependencies": {
     "q": "^1.0.0",
-    "facebook-node-sdk":"git+https://github.com/Thuzi/facebook-node-sdk.git#v0.6.2"
+    "facebook-node-sdk": "git+https://github.com/Thuzi/facebook-node-sdk.git#v0.6.2"
   },
   "devDependencies": {
     "jshint": "~2.3.0",
